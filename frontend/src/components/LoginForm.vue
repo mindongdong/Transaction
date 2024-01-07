@@ -1,15 +1,15 @@
 <template>
   <div class="login-layout">
     <header class="login-header">
-      <h1 class="header-text">Sign in to Cellcraft</h1>
+      <h1 class="header-text">회원 로그인</h1>
     </header>
     <form class="login-form" @submit.prevent="submitForm">
       <div class="login__field">
         <input
           class="login__input"
-          type="email"
-          placeholder="Email"
-          v-model="email"
+          type="userId"
+          placeholder="아이디를 입력해주세요"
+          v-model="userId"
         />
       </div>
 
@@ -17,7 +17,7 @@
         <input
           class="login__input"
           type="password"
-          placeholder="Password"
+          placeholder="비밀번호를 입력해주세요"
           v-model="password"
         />
       </div>
@@ -27,10 +27,10 @@
       <div class="login__login">
         <button
           class="login__button"
-          :disabled="!email || !password"
+          :disabled="!userId || !password"
           type="submit"
         >
-          Sign In
+          로그인
         </button>
       </div>
     </form>
@@ -41,7 +41,7 @@
 export default {
   data() {
     return {
-      email: "",
+      userId: "",
       password: "",
       errorMessage: "",
       isError: false,
@@ -51,7 +51,7 @@ export default {
     async submitForm() {
       try {
         const userData = {
-          username: this.email,
+          username: this.userId,
           password: this.password,
         };
         console.log(userData);
@@ -66,7 +66,7 @@ export default {
       }
     },
     initForm() {
-      this.email = "";
+      this.userId = "";
       this.password = "";
     },
   },
@@ -76,8 +76,6 @@ export default {
 <style scoped>
 .login-layout {
   width: 100%;
-  height: 100%;
-  background: rgba(204, 218, 245, 0.6);
   border-radius: 0.4rem;
   display: flex;
   flex-direction: column;
@@ -86,8 +84,7 @@ export default {
 }
 .login-header {
   width: 90%;
-  height: 15%;
-  margin: 8% 0 7% 0;
+  padding: 3rem 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -95,50 +92,47 @@ export default {
 .header-text {
   font-family: "Montserrat", sans-serif;
   font-style: normal;
-  font-weight: 600;
-  font-size: 1.3rem;
+  font-weight: bold;
+  font-size: 2rem;
   line-height: 2rem;
   text-decoration: none;
   color: rgb(81, 81, 81);
 }
 .login-form {
   width: 90%;
-  height: 80%;
 }
 .login__field {
   width: 100%;
-  height: 20%;
-  margin-top: 1.5%;
   position: relative;
+  margin-bottom: 1rem;
 }
 .login__input {
   width: 100%;
   height: 100%;
+  padding: 2rem 1rem;
   border: 1px solid #ccc;
   border-radius: 0.4rem;
-  padding: 0 1rem;
   box-sizing: border-box;
-  font-size: 1rem;
+  font-size: 1.2rem;
 }
 .login__input:focus {
   border: 1px solid rgb(40, 84, 197);
 }
 .login__login {
   width: 100%;
-  height: 15%;
-  margin-top: 15%;
+  margin: 1rem 0;
 }
 .login__button {
   width: 100%;
-  height: 100%;
+  padding: 2rem 1rem;
   border-radius: 0.4rem;
-  background: rgb(75, 119, 209);
+  background: #007bff;
   color: white;
 
   font-family: "Montserrat", sans-serif;
   font-style: normal;
   font-weight: 500;
-  font-size: 1rem;
+  font-size: 1.8rem;
   line-height: 1rem;
   text-decoration: none;
 }

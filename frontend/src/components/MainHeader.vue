@@ -4,15 +4,17 @@
     <div class="main-header__options">
       <div
         class="main-header__option"
-        v-for="(option, idx) in options"
-        :key="idx"
+        v-for="option in Object.keys(options)"
+        :key="option"
       >
-        <router-link to="/" class="link">{{ option }}</router-link>
+        <router-link :to="options[option]" class="link">{{
+          option
+        }}</router-link>
       </div>
     </div>
     <div class="main-header__column">
       <div class="main-header__logo">
-        <router-link to="/" class="link">박진혁</router-link>
+        <router-link to="/" class="link">로고</router-link>
       </div>
       <div class="main-header__search">
         <input
@@ -32,7 +34,11 @@
           v-for="(serverName, idx) in serverNames"
           :key="idx"
         >
-          {{ serverName }}
+          <router-link
+            :to="{ path: '/board', query: { server: serverName } }"
+            class="link"
+            >{{ serverName }}</router-link
+          >
         </div>
       </div>
     </div>
@@ -43,7 +49,11 @@ export default {
   name: "MainHeader",
   data() {
     return {
-      options: ["로그인", "회원가입", "마이페이지", "고객센터"],
+      options: {
+        로그인: "/login",
+        회원가입: "/signup",
+        마이페이지: "/mypage",
+      },
       serverNames: [
         "루나",
         "스카니아",
@@ -131,7 +141,6 @@ export default {
   justify-content: center;
   width: 100vw;
   background-color: #46dc91;
-  margin: 0 auto;
 }
 .menu-componenet {
   padding: 1rem;

@@ -1,27 +1,24 @@
 <template>
   <div class="signup-layout">
     <header class="signup-header">
-      <h1 class="header-text">Sign up</h1>
+      <h1 class="header-text">회원가입</h1>
     </header>
     <form class="signup-form" @submit.prevent="submitForm">
       <div class="signup__field">
         <input
           class="signup__input"
-          type="email"
-          placeholder="Email"
-          v-model="email"
+          type="text"
+          placeholder="아이디를 입력해주세요"
+          v-model="userId"
         />
-        <div class="error-message" v-if="!isEmailValidation && email">
-          Please follow the email format
-        </div>
       </div>
 
       <div class="signup__field">
         <input
           class="signup__input"
           type="name"
-          placeholder="Username"
-          v-model="username"
+          placeholder="연락처를 입력해주세요"
+          v-model="contact"
         />
       </div>
 
@@ -29,17 +26,16 @@
         <input
           class="signup__input"
           type="password"
-          placeholder="Password"
+          placeholder="비밀번호를 8자리 이상으로 입력해주세요"
           v-model="password"
         />
-        <div class="error-message">At least 8 characters</div>
       </div>
 
       <div class="signup__field">
         <input
           class="signup__input"
           type="password"
-          placeholder="Confirm password"
+          placeholder="비밀번호를 다시 입력해주세요"
           v-model="re_password"
         />
       </div>
@@ -49,9 +45,9 @@
       <div class="signup__signup">
         <button
           class="signup__button"
-          :disabled="!email || !username || !password"
+          :disabled="!userId || !contact || !password || !re_password || password !== re_password"
         >
-          Join
+          회원가입
         </button>
       </div>
     </form>
@@ -64,9 +60,9 @@
 export default {
   data() {
     return {
-      email: "",
+      userId: "",
       password: "",
-      username: "",
+      contact: "",
       re_password: "",
       modal: false,
       errorMessage: "",
@@ -77,9 +73,9 @@ export default {
     // async submitForm() {
     //   try {
     //     const userData = {
-    //       email: this.email,
+    //       userId: this.userId,
     //       password: this.password,
-    //       username: this.username,
+    //       contact: this.contact,
     //     };
     //     console.log(userData);
     //     this.modal = true;
@@ -95,9 +91,9 @@ export default {
     //   }
     // },
     initForm() {
-      this.email = "";
+      this.userId = "";
       this.password = "";
-      this.username = "";
+      this.contact = "";
       this.re_password = "";
     },
   },
@@ -116,7 +112,6 @@ export default {
 }
 .signup-header {
   width: 100%;
-  height: 15%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -125,8 +120,8 @@ export default {
 .header-text {
   font-family: "Montserrat", sans-serif;
   font-style: normal;
-  font-weight: 500;
-  font-size: 2rem;
+  font-weight: bold;
+  font-size: 3rem;
   line-height: 2rem;
   text-decoration: none;
   color: rgb(81, 81, 81);
@@ -137,7 +132,6 @@ export default {
 }
 .signup__field {
   width: 100%;
-  height: 15%;
   position: relative;
   margin-bottom: 5.5%;
 }
@@ -146,25 +140,24 @@ export default {
   height: 100%;
   border: 1px solid #ccc;
   border-radius: 0.4rem;
-  padding: 0 1rem;
+  padding: 2rem 1rem;
   box-sizing: border-box;
   font-size: 1rem;
 }
 .signup__signup {
   width: 100%;
-  height: 15%;
 }
 .signup__button {
   width: 100%;
-  height: 100%;
+  padding: 2rem 1rem;
   border-radius: 0.4rem;
-  background: rgb(75, 119, 209);
+  background: #007bff;
   color: white;
 
   font-family: "Montserrat", sans-serif;
   font-style: normal;
   font-weight: 500;
-  font-size: 1rem;
+  font-size: 1.8rem;
   line-height: 1rem;
   text-decoration: none;
 }

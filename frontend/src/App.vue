@@ -4,14 +4,14 @@
     <router-view />
     <footer class="footer">
       <div class="footer__column">
-        <div class="footer__logo">박진혁</div>
+        <div class="footer__logo">로고</div>
         <div class="footer__content">
           <div class="footer__content__item">이용약관</div>
           <div class="footer__content__item">개인정보처리방침</div>
           <div class="footer__content__item">운영정책</div>
         </div>
         <div class="copyright">
-          © 2024. 박진혁 all rights reserved.
+          © 2024. 로고 all rights reserved.
         </div>
       </div>
     </footer>

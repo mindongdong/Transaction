@@ -1,15 +1,9 @@
 <template>
   <div class="layout">
     <div class="signup-component">
-      <router-link class="signup__logo" to="/main">
-        <img class="logo__img" src="@/assets/cellcraft_logo.png" alt="박진혁 로고" />
-      </router-link>
       <div class="signup-box">
         <SignupForm></SignupForm>
       </div>
-      <footer class="signup-footer">
-        <div class="copyright__txt">박진혁 로고 © 2024. All rights reserved</div>
-      </footer>
     </div>
   </div>
 </template>
@@ -31,12 +25,15 @@ export default {
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  padding: 5rem;
   box-sizing: border-box;
 }
 .signup-component {
-  width: 26rem;
-  height: 40rem;
+  width: 35rem;
+    margin: 4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 .signup__logo {
   width: 100%;
@@ -58,18 +55,12 @@ export default {
   font-style: normal;
   font-weight: 800;
   font-size: 3rem;
-  color: rgb(40, 84, 197);
+  color: #2854c5;
   line-height: 3rem;
   text-decoration: none;
 }
 .signup-box {
   width: 100%;
-  height: 30rem;
   margin-bottom: 2rem;
-}
-.signup-footer {
-  width: 100%;
-  height: 3rem;
-  border-top: 1px solid rgba(204, 204, 204, 0.5);
 }
 </style>

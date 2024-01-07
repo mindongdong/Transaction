@@ -13,9 +13,25 @@ const routes = [
     component: () => import("@/views/MainPage.vue"),
   },
   {
+    path: "/signup",
+    component: () => import("@/views/SignupPage.vue"),
+  },
+  {
+    path: "/login",
+    component: () => import("@/views/LoginPage.vue"),
+  },
+  {
     path: "/registerForm",
     component: () => import("@/views/BoardRegistrationForm.vue"),
   },
+  {
+    path: "/board",
+    component: () => import("@/views/BoardPage.vue"),
+  },
+  {
+    path: "/boardContent",
+    component: () => import("@/views/BoardContent.vue"),
+  }
 ];
 
 // createRouter 함수를 사용하여 라우터 인스턴스를 생성합니다.
