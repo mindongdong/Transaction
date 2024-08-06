@@ -14,7 +14,9 @@
     </div>
     <div class="main-header__column">
       <div class="main-header__logo">
-        <router-link to="/" class="link">로고</router-link>
+        <router-link to="/" class="link">
+          <img class="main-header__logo--img" src="@/assets/logo.png" alt="로고" />
+        </router-link>
       </div>
       <div class="main-header__search">
         <input
@@ -100,6 +102,18 @@ export default {
   align-items: center;
   justify-content: center;
 }
+.main-header__logo a {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.main-header__logo--img{
+  width: 10rem;
+  height: 6rem;
+  object-fit: contain;
+}
 .main-header__search {
   width: 50rem;
   height: 10rem;
@@ -107,13 +121,14 @@ export default {
   margin: 0 1rem;
 }
 .search-input {
-  border: 4px solid #61e2a1;
+  border: 4px solid #f4b6c3;
   width: 100%;
   height: 50%;
   padding: 0 1rem;
   margin-top: 2.5rem;
   font-size: 1.5rem;
   outline: none;
+  border-radius: 1rem;
 }
 .search-button {
   position: absolute;
@@ -127,7 +142,12 @@ export default {
   justify-content: center;
   width: 5rem;
   height: 5rem;
-  background-color: #61e2a1;
+  background-color: #f4b6c3;
+  border-radius: 1rem;
+}
+.search-button:hover {
+  background-color: #f296aa;
+  transition: all 0.1s ease-in-out;
 }
 .search-button img {
   width: 3rem;
@@ -140,20 +160,30 @@ export default {
   align-items: center;
   justify-content: center;
   width: 100vw;
-  background-color: #46dc91;
+  background-color: #f4b6c3;
 }
 .menu-componenet {
   padding: 1rem;
   width: calc((100vw - 40rem) / 7);
   min-width: 10rem;
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   cursor: pointer;
 }
 
-.main-header__menu-bar .menu-componenet:hover {
-  background-color: #21d44e;
+.menu-componenet a {
+  border-radius: 1rem;
+  padding: 0.5rem;
+}
+
+.menu-componenet a:hover {
+  background-color: #ed5070;
   transition: all 0.3s ease-in-out;
 }
+
+/* .main-header__menu-bar .menu-componenet:hover {
+  background-color: #ed5070;
+  transition: all 0.3s ease-in-out;
+} */
 .link {
   text-decoration: none;
   color: #000000;
