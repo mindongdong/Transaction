@@ -1,6 +1,9 @@
 <!-- main page -->
 <template>
   <div class="main-page">
+    <div class="main-page__popupContent">
+      <MainSlider :contents="popupComponents" :styles="popupStyles" :slidesPerView="1"></MainSlider>
+    </div>
     <div class="main-page__header">
       <h1 class="main-page__title">
         웹사이트 소개입니다. 웹사이트 소개입니다.
@@ -9,28 +12,14 @@
         웹사이트 설명입니다. 웹사이트 설명입니다.
       </p>
     </div>
-    <div class="main-page__popupContent">
-      <MainSlider
-        :contents="popupComponents"
-        :styles="popupStyles"
-      ></MainSlider>
+    <div class="main-page__board">
+      <div class="board__list">
+        <MainSlider :contents="boardComponents" :slidesPerView="3"></MainSlider>
+      </div>
     </div>
     <div class="main-page__board">
-      <div class="board__form">
-        <div class="board__form__title">구매 등록</div>
-        <div class="board__form__content">
-          <div class="board__form__content__description">
-            원하는 매물로 등록 신청하기
-          </div>
-          <div class="board__form__content__link">
-            <router-link to="/registerForm" class="link">
-              구매 등록 신청 바로 가기
-            </router-link>
-          </div>
-        </div>
-      </div>
       <div class="board__list">
-        <MainSlider :contents="boardComponents"></MainSlider>
+        <MainSlider :contents="boardComponents" :slidesPerView="3"></MainSlider>
       </div>
     </div>
   </div>
@@ -106,19 +95,23 @@ export default {
   align-items: center;
   justify-content: center;
 }
+
 .main-page__header {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: 5rem 0;
+  margin: 2rem 0;
 }
+
 .main-page__title {
   font-size: 3rem;
 }
+
 .main-page__subtitle {
   font-size: 1.5rem;
 }
+
 .main-page__content {
   display: flex;
   flex-direction: column;
@@ -126,15 +119,17 @@ export default {
   justify-content: center;
   height: 70%;
 }
+
 .main-page__text {
   font-size: 1.5rem;
 }
+
 .main-page__popupContent,
 .main-page__board {
   width: calc(100vw - 34rem);
   min-width: 80rem;
-  height: 30rem;
-  margin-bottom: 2rem;
+  height: 40rem;
+  margin: 2rem 0;
 }
 
 .main-page__board {
@@ -156,6 +151,7 @@ export default {
   justify-content: center;
   margin-bottom: auto;
 }
+
 .board__form__title {
   font-size: 1.5rem;
   color: #333;
@@ -195,7 +191,7 @@ export default {
 }
 
 .board__list {
-  width: 70%;
+  width: 100%;
   height: 100%;
 }
 </style>

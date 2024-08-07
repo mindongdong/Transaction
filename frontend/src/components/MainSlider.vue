@@ -1,7 +1,7 @@
 <template>
   <swiper
     :modules="modules"
-    :slides-per-view="2"
+    :slides-per-view="slidesPerView"
     :space-between="50"
     navigation
     loop
@@ -39,6 +39,10 @@ export default {
     styles: {
       type: Object,
       required: true,
+    },
+    slidesPerView: {
+      type: Number,
+      default: 3,
     },
   },
   setup() {
