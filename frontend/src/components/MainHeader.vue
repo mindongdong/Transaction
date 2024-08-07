@@ -1,46 +1,32 @@
 <!-- 로고, 검색창, 메뉴바가 포함되어 있는 기본 헤더 컴포넌트 -->
 <template>
   <header class="main-header">
-    <div class="main-header__options">
-      <div
-        class="main-header__option"
-        v-for="option in Object.keys(options)"
-        :key="option"
-      >
-        <router-link :to="options[option]" class="link">{{
-          option
-        }}</router-link>
-      </div>
-    </div>
     <div class="main-header__column">
       <div class="main-header__logo">
         <router-link to="/" class="link">
-          <img class="main-header__logo--img" src="@/assets/logo.png" alt="로고" />
+          <img class="main-header__logo--img" src="@/assets/logo_white.png" alt="로고" />
         </router-link>
       </div>
-      <div class="main-header__search">
-        <input
-          type="text"
-          class="search-input"
-          placeholder="검색어를 입력하세요"
-        />
+      <div class="main-header__menu-bar">
+        <div class="menu-componenet" v-for="(serverName, idx) in serverNames" :key="idx">
+          <router-link :to="{ path: '/board', query: { server: serverName } }" class="link">{{ serverName
+            }}</router-link>
+        </div>
+      </div>
+      <!-- <div class="main-header__search">
+        <input type="text" class="search-input" placeholder="검색어를 입력하세요" />
         <button class="search-button">
           <img src="@/assets/search.png" alt="검색" />
         </button>
-      </div>
-    </div>
-    <div class="main-header__column">
-      <div class="main-header__menu-bar">
-        <div
-          class="menu-componenet"
-          v-for="(serverName, idx) in serverNames"
-          :key="idx"
-        >
-          <router-link
-            :to="{ path: '/board', query: { server: serverName } }"
-            class="link"
-            >{{ serverName }}</router-link
-          >
+      </div> -->
+      <div class="main-header__options">
+        <button class="search-button">
+          <img src="@/assets/search.png" alt="검색" />
+        </button>
+        <div class="main-header__option" v-for="option in Object.keys(options)" :key="option">
+          <router-link :to="options[option]" class="link">{{
+            option
+            }}</router-link>
         </div>
       </div>
     </div>
@@ -57,13 +43,13 @@ export default {
         마이페이지: "/mypage",
       },
       serverNames: [
-        "루나",
-        "스카니아",
-        "엘리시움",
-        "크로아",
-        "오로라",
-        "레드",
-        "이노시스",
+        "액션",
+        "롤플레잉",
+        "RPG",
+        "FPS",
+        "스포츠",
+        "캐주얼",
+        "어드벤처",
       ],
     };
   },
@@ -76,32 +62,40 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+  flex-direction: column;
   color: #fff;
 }
+
 .main-header__options {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: flex-end;
-  width: 100vw;
+  width: 50%;
   padding: 0.5rem 1rem;
 }
+
 .main-header__option {
   padding: 0 1rem;
 }
+
 .main-header__column {
+  width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
+  margin-top: 1rem;
 }
+
 .main-header__logo {
-  width: 20rem;
-  height: 10rem;
+  width: 15%;
+  height: 2rem;
   font-size: 4rem;
   display: flex;
   align-items: center;
   justify-content: center;
 }
+
 .main-header__logo a {
   width: 100%;
   height: 100%;
@@ -109,30 +103,33 @@ export default {
   align-items: center;
   justify-content: center;
 }
-.main-header__logo--img{
-  width: 10rem;
-  height: 6rem;
+
+.main-header__logo--img {
+  width: 100%;
+  height: 100%;
   object-fit: contain;
 }
+
 .main-header__search {
-  width: 50rem;
-  height: 10rem;
+  width: 25%;
+  height: 5rem;
   position: relative;
-  margin: 0 1rem;
 }
+
 .search-input {
-  border: 4px solid #f4b6c3;
+  border: 4px solid #BB1936;
   width: 100%;
   height: 50%;
   padding: 0 1rem;
   margin-top: 2.5rem;
-  font-size: 1.5rem;
+  font-size: 1rem;
   outline: none;
   border-radius: 1rem;
 }
-.search-button {
+
+/* .search-button {
   position: absolute;
-  top: calc(50% - 2.5rem);
+  top: calc(50%);
   right: 0;
   border: none;
   background-color: transparent;
@@ -140,33 +137,42 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 5rem;
-  height: 5rem;
-  background-color: #f4b6c3;
+  width: 2.5rem;
+  height: 2.5rem;
+  background-color: #BB1936;
   border-radius: 1rem;
+} */
+
+.search-button {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 1rem;
+  background: black;
+  border: none;
+  cursor: pointer;
 }
+
 .search-button:hover {
-  background-color: #f296aa;
+  background-color: #4a4a4a;
   transition: all 0.1s ease-in-out;
 }
+
 .search-button img {
-  width: 3rem;
-  height: 3rem;
+  width: 1.5rem;
+  height: 1.5rem;
 }
+
 .main-header__menu-bar {
   /* gap: 1rem; */
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  width: 100vw;
-  background-color: #f4b6c3;
 }
+
 .menu-componenet {
-  padding: 1rem;
-  width: calc((100vw - 40rem) / 7);
-  min-width: 10rem;
-  font-size: 1.4rem;
+  min-width: 5rem;
+  font-size: 1rem;
   cursor: pointer;
 }
 
@@ -176,7 +182,7 @@ export default {
 }
 
 .menu-componenet a:hover {
-  background-color: #ed5070;
+  background-color: #BB1936;
   transition: all 0.3s ease-in-out;
 }
 
@@ -186,6 +192,6 @@ export default {
 } */
 .link {
   text-decoration: none;
-  color: #000000;
+  color: white;
 }
 </style>

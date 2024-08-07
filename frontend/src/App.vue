@@ -5,7 +5,7 @@
     <footer class="footer">
       <div class="footer__column">
         <div class="footer__logo">
-          <img class="footer__logo--img" src="@/assets/logo.svg" alt="로고" />
+          <img class="footer__logo--img" src="@/assets/logo_white.png" alt="로고" />
         </div>
         <div class="footer__content">
           <div class="footer__content__item">이용약관</div>
@@ -36,8 +36,9 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #333;
+  color: white;
   overflow-x: hidden;
+  background: black;
 }
 
 /* reset css */
@@ -61,7 +62,7 @@ body {
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  border-top: 2px solid #ddd;
+  /* border-top: 2px solid #ddd; */
   color: hsla(0,0%,100%,.65);
   background-color: #333;
 }
@@ -94,9 +95,5 @@ body {
 
 .footer__content__item {
   margin: 0.5rem;
-}
-
-.copyright {
-  margin-top: 1rem;
 }
 </style>

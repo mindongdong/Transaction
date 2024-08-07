@@ -2,7 +2,7 @@
 <template>
   <div class="main-page">
     <div class="main-page__popupContent">
-      <MainSlider :contents="popupComponents" :styles="popupStyles"></MainSlider>
+      <MainSlider :contents="popupComponents" :styles="popupStyles" :slidesPerView="1"></MainSlider>
     </div>
     <div class="main-page__header">
       <h1 class="main-page__title">
@@ -14,7 +14,12 @@
     </div>
     <div class="main-page__board">
       <div class="board__list">
-        <MainSlider :contents="boardComponents"></MainSlider>
+        <MainSlider :contents="boardComponents" :slidesPerView="3"></MainSlider>
+      </div>
+    </div>
+    <div class="main-page__board">
+      <div class="board__list">
+        <MainSlider :contents="boardComponents" :slidesPerView="3"></MainSlider>
       </div>
     </div>
   </div>
@@ -123,7 +128,7 @@ export default {
 .main-page__board {
   width: calc(100vw - 34rem);
   min-width: 80rem;
-  height: 30rem;
+  height: 40rem;
   margin: 2rem 0;
 }
 
@@ -186,7 +191,7 @@ export default {
 }
 
 .board__list {
-  width: 70%;
+  width: 100%;
   height: 100%;
 }
 </style>
