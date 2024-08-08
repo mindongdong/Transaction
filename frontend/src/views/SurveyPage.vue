@@ -15,7 +15,7 @@
                 </div>
 
                 <div class="display" id="mainCanvas">
-                    <div class="question" v-if="currentQuestionIndex < questions.length">
+                    <div class="question" v-if="currentQuestionIndex < questions.length && showQuestion">
                         <p>{{ questions[currentQuestionIndex].text }}</p>
                         <div class="answers">
                             <label class="custom-radio">
@@ -36,28 +36,35 @@
                             </label>
                         </div>
                     </div>
-                    <div class="question" v-else>
-                        <h2 v-if="result === ''"></h2>
-                        <p v-if="result !== ''">{{ result }}</p>
-                        <div class="next-label" @click="submitSurvey">메인 페이지 ></div>
+                    <div class="question" v-if="currentQuestionIndex == questions.length && showQuestion">
+                        <video class="video" v-if="result === ''" autoplay loop muted>
+                            <source src="@/assets/ux_logo.webm" type="video/webm">
+                        </video>
+                        <p v-if="result !== ''">
+                            <span style="display: block; text-align: left;">당신은</span><br>
+                            <span style="display: block; text-align: center; font-weight: bold;">"{{ result
+                                }}"</span><br>
+                            <span style="display: block; text-align: right;">군요!</span>
+                        </p>
+                        <div v-if="result !== ''" class="next-label" @click="submitSurvey">계속 진행 ></div>
                     </div>
                 </div>
 
-                <div class="label">
+                <!-- <div class="label">
                     <div class="title">GAME BOY</div>
                     <div class="subtitle">
-                        <span class="c">C</span><!--
-     --><span class="o1">O</span><!--
-     --><span class="l">L</span><!--
-     --><span class="o2">O</span><!--
-     --><span class="r">R</span>
+                        <span class="c">C</span>
+                        <span class="o1">O</span>
+                        <span class="l">L</span>
+                        <span class="o2">O</span>
+                        <span class="r">R</span>
                     </div>
-                </div>
+                </div> -->
 
             </div>
         </div>
 
-        <div class="wrapper">
+        <div :class="['wrapper', { 'no-anima': isClicked }]" @click="handleWrapperClick">
 
             <!-- LEFT -->
             <div class="joy_left_wrapper">
@@ -90,13 +97,6 @@
 
 
         </div>
-
-        <div class="wire"></div>
-
-        <h1 class="info">
-            <div class="left"></div>
-            <div class="right"></div>
-        </h1>
     </div>
 </template>
 
@@ -113,7 +113,7 @@ export default {
                 { text: "Q6. 상인 NPC를 만났어! 어떻게 반응할래?", answer1: "A1. 필요한 것만 빨리 사", answer2: "A2. NPC 이야기도 궁금해" },
                 { text: "Q7. 게임 속에서 친구가 위기에 처했어! 어떻게 할래?", answer1: "A1. 어쩔 수 없이 도망가", answer2: "A2. 친구를 구해" },
                 { text: "Q8. 친구가 '흙'이라는 아이템을 줬어. 어떻게 생각해?", answer1: "A1. 필요 없으니 버려", answer2: "A2. 고마워" },
-                { text: "Q9. 다람쥐를 잡으면 보상을 준대! 어떻게 할래?", answer1: "A1. 어디 있는지 바로 찾으러 가", answer2: "A2. 귀여워서 못 잡겠어" },
+                { text: "Q9. 다람쥐를 잡으면 보상을 준대! 어떻게 할래?", answer1: "A1. 다람쥐 바로 찾으러 가", answer2: "A2. 귀여워서 못 잡겠어" },
                 { text: "Q10. 퀘스트를 할 때 어떻게 해?", answer1: "A1. 눈에 띄는 것부터 해", answer2: "A2. 동선 고려해서 효율적으로" },
                 { text: "Q11. 게임할 시간을 지켜?", answer1: "A1. 응, 꼭 지켜", answer2: "A2. 아니, 가끔 넘겨" },
                 { text: "Q12. 나중에 게임을 만든다면 어떤 게임을 만들고 싶어?", answer1: "A1. 힐링되는 게임", answer2: "A2. 전략적인 게임" },
@@ -121,8 +121,12 @@ export default {
             currentQuestionIndex: 0,
             responses: [],
             result: '',
+            showGameboy: false,
+            showQuestion: false,
+            showWrapper: false,
             isHoverEnabledFirstButton: false,
             isHoverEnabledSecondButton: false,
+            isClicked: false,
         };
     },
     watch: {
@@ -133,12 +137,27 @@ export default {
         },
     },
     methods: {
+        handleLayoutClick() {
+            if (!this.showGameboy) {
+                this.showGameboy = true;
+                setTimeout(() => {
+                    this.showWrapper = true;
+                }, 2000);
+            } else if (this.showGameboy && this.showWrapper) {
+                this.showQuestion = true;
+            }
+        },
+        handleWrapperClick() {
+            this.isClicked = true;
+            this.showQuestion = true;
+        },
         // router로 /main으로 이동
         submitSurvey() {
             // 초기화
             this.currentQuestionIndex = 0;
             this.responses = [];
             this.result = '';
+            this.showQuestion = false;
 
             this.$router.push('/main');
         },
@@ -209,25 +228,28 @@ export default {
             ];
 
             const resultText = {
-                ENFP: '활발한 멀티플레이어로, 창의적이고 감정적으로 몰입하는 플레이어. 친구와 협력하며 스토리와 세계관을 중요시 여김.',
-                ENTP: '전략적이고 창의적인 플레이를 즐기는 멀티플레이어로, 다양한 도전을 시도하며 친구와 함께 혁신적인 방법으로 게임을 해결함.',
-                ENFJ: '타인과의 협력을 중시하며, 감정적으로 몰입하는 플레이어. 협동과 소통을 통해 게임을 즐김.',
-                ENTJ: '목표 지향적이고 전략적인 플레이어로, 효율적으로 게임을 이끌고 도전을 즐김.',
-                ESFP: '사교적이고 즐거움을 추구하는 플레이어로, 친구들과 함께 게임의 재미를 추구함.',
-                ESFJ: '타인과의 관계를 중요시하며, 협력과 감정적인 몰입을 통해 게임을 즐기는 플레이어.',
-                ESTP: '즉흥적이고 활동적인 플레이어로, 빠르게 상황에 적응하며 게임을 즐김.',
-                ESTJ: '논리적이고 체계적인 플레이를 중시하며, 목표를 달성하기 위해 효율적으로 게임을 진행함.',
-                INFP: '창의적이고 감정적으로 몰입하는 솔로 플레이어로, 스토리와 캐릭터의 감정선을 중시함.',
-                INTP: '논리적이고 창의적인 솔로 플레이어로, 복잡한 문제 해결과 전략적 플레이를 선호함.',
-                INFJ: '깊이 있는 스토리와 감정을 중시하며, 혼자서도 몰입하는 플레이를 즐기는 플레이어.',
-                INTJ: '체계적이고 전략적인 솔로 플레이어로, 목표 달성에 집중하며 게임을 즐김.',
-                ISFP: '감정적으로 몰입하며, 혼자서도 게임의 재미를 느끼는 플레이어. 스토리와 캐릭터의 감정선을 중요시함.',
-                ISFJ: '혼자서도 관계와 감정을 중시하며 게임을 즐기는 플레이어로, 스토리와 캐릭터의 감정선을 중요하게 생각함.',
-                ISTP: '즉흥적이고 논리적인 솔로 플레이어로, 빠르게 상황에 적응하며 게임을 즐김.',
-                ISTJ: '혼자서 체계적으로 게임을 즐기는 플레이어로, 현실적이고 논리적인 목표를 설정하고 달성하는 것을 선호함.',
+                ENFP: '창의적이고 감정적으로 몰입하며, 친구와 협력하는 플레이어.',
+                ENTP: '전략적이고 창의적으로 다양한 도전을 즐기는 멀티플레이어.',
+                ENFJ: '협력과 소통을 중시하며 감정적으로 몰입하는 플레이어.',
+                ENTJ: '목표 지향적이고 전략적으로 게임을 이끄는 플레이어.',
+                ESFP: '사교적이고 즐거움을 추구하며 친구들과 함께하는 플레이어.',
+                ESFJ: '관계를 중요시하며 협력과 감정적으로 몰입하는 플레이어.',
+                ESTP: '즉흥적이고 활동적으로 빠르게 적응하는 플레이어.',
+                ESTJ: '논리적이고 체계적으로 목표를 달성하는 플레이어.',
+                INFP: '창의적이고 감정적으로 몰입하며 스토리를 중시하는 솔로 플레이어.',
+                INTP: '논리적이고 창의적으로 문제를 해결하는 솔로 플레이어.',
+                INFJ: '깊이 있는 스토리와 감정을 중시하는 솔로 플레이어.',
+                INTJ: '체계적이고 전략적으로 목표 달성에 집중하는 솔로 플레이어.',
+                ISFP: '감정적으로 몰입하며 스토리를 중시하는 솔로 플레이어.',
+                ISFJ: '관계와 감정을 중시하며 스토리를 즐기는 솔로 플레이어.',
+                ISTP: '즉흥적이고 논리적으로 상황에 적응하는 솔로 플레이어.',
+                ISTJ: '체계적이고 현실적인 목표를 설정하는 솔로 플레이어.',
             };
 
-            this.result = resultText[resultTypes.join('')];
+            // 5초 휴식
+            setTimeout(() => {
+                this.result = resultText[resultTypes.join('')];
+            }, 6000);
         },
     },
 }
@@ -245,10 +267,17 @@ export default {
     position: relative;
     width: 100vw;
     height: 100vh;
-    background-image: url('@/assets/test_v5.png');
+    background-image: url('@/assets/test_v6.png');
     background-position: center;
     background-size: cover;
     background-repeat: repeat;
+    overflow: hidden;
+}
+
+.video {
+    width: 20rem;
+    height: auto;
+    margin-bottom: 2rem;
 }
 
 .question,
@@ -264,6 +293,7 @@ export default {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    padding-top: 2.5rem;
 }
 
 .question h2 {
@@ -271,12 +301,7 @@ export default {
 }
 
 .question p {
-    margin-bottom: 1rem;
-}
-
-.answers {
-    display: flex;
-    flex-direction: column;
+    margin-bottom: 2rem;
 }
 
 .answers label {
@@ -284,10 +309,10 @@ export default {
 }
 
 .answers {
+    width: 65rem;
     display: flex;
     align-items: center;
-    justify-content: center;
-    flex-direction: column;
+    justify-content: space-around;
 }
 
 .custom-radio {
@@ -301,9 +326,10 @@ input[type="radio"] {
 }
 
 .next-label {
-    width: 10rem;
+    width: 8rem;
     height: 3rem;
     display: flex;
+    justify-content: center;
     align-items: center;
     padding: 0.5rem 1rem;
     font-size: 1rem;
@@ -320,7 +346,9 @@ input[type="radio"] {
 }
 
 .radio-label {
+    width: 27rem;
     display: flex;
+    justify-content: center;
     align-items: center;
     padding: 10px 20px;
     font-size: 1.5rem;
@@ -349,7 +377,7 @@ input[type="radio"]:checked+.radio-label {
 
 .gameboy {
     position: absolute;
-    top: 3rem;
+    top: calc(50% - 250px);
     width: 1200px;
     height: 500px;
     border-radius: 20px;
@@ -820,11 +848,8 @@ input[type="radio"]:checked+.radio-label {
     position: relative;
     margin: 0 auto;
     transform: scale(.7);
-
-    &:hover {
-        // animation: vibe 1s ease;
-        cursor: pointer;
-    }
+    animation: vibe 1s ease infinite;
+    cursor: pointer;
 
     .mid_right {
         position: absolute;
@@ -861,6 +886,7 @@ input[type="radio"]:checked+.radio-label {
     .cover {
         &:hover {
             transform: scale(1.05);
+            animation: none;
         }
 
         position: absolute;
@@ -872,6 +898,21 @@ input[type="radio"]:checked+.radio-label {
         z-index: 2;
         border-radius: 50%;
         box-shadow: 0 0 10px -5px darken(#19A3FF, 30%);
+        // animation: blinkBackground 1s infinite;
+    }
+
+    @keyframes blinkBackground {
+        0% {
+            background-color: darken(#BDC3C7, 20%);
+        }
+
+        50% {
+            background-color: lighten(#dcea4481, 20%);
+        }
+
+        100% {
+            background-color: darken(#BDC3C7, 20%);
+        }
     }
 
     .joy_left_wrapper,
@@ -1049,5 +1090,110 @@ input[type="radio"]:checked+.radio-label {
         border-color: transparent transparent transparent #333;
         border-style: solid solid solid solid;
     }
+}
+
+.no-anima {
+    animation: none;
+    cursor: default;
+}
+
+@keyframes vibe {
+    0% {}
+
+    2% {
+        transform: translateX(5px) rotateZ(1deg) scale(0.7);
+    }
+
+    4% {
+        transform: translateX(-5px) rotateZ(-1deg) scale(0.705);
+    }
+
+    6% {
+        transform: translateX(3px) rotateZ(2deg) scale(0.71);
+    }
+
+    8% {
+        transform: translateX(-2px) rotateZ(-2deg) scale(0.715);
+    }
+
+    10% {
+        transform: translateX(1px) rotateZ(2deg) scale(0.72);
+    }
+
+    12% {
+        transform: translateX(-5px) rotateZ(-2deg) scale(0.725);
+    }
+
+    14% {
+        transform: translateX(3px) rotateZ(-1deg) scale(0.73);
+    }
+
+    16% {
+        transform: translateX(-5px) rotateZ(-2deg) scale(0.725);
+    }
+
+    18% {
+        transform: translateX(5px) rotateZ(2deg) scale(0.72);
+    }
+
+    20% {
+        transform: translateX(-5px) rotateZ(-2deg) scale(0.715);
+    }
+
+    22% {
+        transform: translateX(5px) rotateZ(2deg) scale(0.71);
+    }
+
+    24% {
+        transform: translateX(-3px) rotateZ(-2deg) scale(0.705);
+    }
+
+    26% {
+        transform: translateX(0px) rotateZ(0deg) scale(0.7);
+    }
+
+    100% {}
+}
+
+.slide-fade-enter-active,
+.slide-fade-leave-active {
+    transition: all 1s ease;
+}
+
+.slide-fade-enter,
+.slide-fade-leave-to {
+    transform: translateY(-100%);
+    opacity: 0;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 2s;
+}
+
+.fade-enter,
+.fade-leave-to {
+    opacity: 0;
+}
+
+.slide-up-enter-active,
+.slide-up-leave-active {
+    transition: all 1s ease;
+}
+
+.slide-up-enter,
+.slide-up-leave-to {
+    transform: translateY(100%);
+    opacity: 0;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 2s;
+}
+
+.fade-enter,
+.fade-leave-to {
+    opacity: 0;
 }
 </style>

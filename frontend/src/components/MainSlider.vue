@@ -1,14 +1,7 @@
 <template>
-  <swiper
-    :modules="modules"
-    :slides-per-view="slidesPerView"
-    :space-between="50"
-    navigation
-    loop
-    @swiper="onSwiper"
-    @slideChange="onSlideChange"
-  >
-    <swiper-slide class="main-slider" v-for="(content, idx) in contents" :key="idx">
+  <swiper :modules="modules" :slides-per-view="slidesPerView" :space-between="50" navigation loop @swiper="onSwiper"
+    @slideChange="onSlideChange" :initial-slide="3">
+    <swiper-slide class="main-slider" v-for="(content, idx) in contents" :key="idx" @click="detailPush">
       <img class="main-slider__img" :src="content.content">
     </swiper-slide>
   </swiper>
@@ -43,6 +36,10 @@ export default {
       type: Number,
       default: 3,
     },
+    widthSlider: {
+      type: String,
+      default: "100%",
+    },
   },
   setup() {
     const onSwiper = (swiper) => {
@@ -57,12 +54,15 @@ export default {
       modules: [Navigation, A11y],
     };
   },
+  methods: {
+    detailPush() {
+      this.$router.push("/detail");
+    },
+  },
 };
 </script>
 
-<style>
-/* 기존의 스타일 */
-/* Swiper 스타일 */
+<!-- <style>
 .swiper {
   width: 100%;
   height: 100%;
@@ -70,7 +70,6 @@ export default {
   padding: 0 5rem;
 }
 
-/* 각 슬라이드의 크기 설정 */
 .swiper-slide {
   width: calc(100%);
   height: calc(100% - 2rem);
@@ -150,4 +149,4 @@ export default {
   font-size: 1rem;
   color: white;
 }
-</style>
+</style> -->

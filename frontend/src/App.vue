@@ -11,7 +11,8 @@
     }">
       <div class="footer__column">
         <div class="footer__logo">
-          <img class="footer__logo--img" src="@/assets/logo_white.png" alt="로고" />
+          <img class="footer__logo--img" src="@/assets/G.png" alt="로고" />
+          <img class="footer__logo--img" src="@/assets/C.png" alt="로고" />
         </div>
         <div class="footer__content">
           <div class="footer__content__item">이용약관</div>
@@ -19,7 +20,7 @@
           <div class="footer__content__item">운영정책</div>
         </div>
         <div class="copyright">
-          © 2024. 로고 all rights reserved.
+          © 2024. all rights reserved.
         </div>
       </div>
     </footer>
@@ -35,8 +36,8 @@ export default {
   },
   data() {
     return {
-      surveyPage: true,
-      mainPage: false,
+      surveyPage: false,
+      mainPage: true,
     };
   },
   watch: {
@@ -44,6 +45,10 @@ export default {
       if (!to.path.includes("/survey")) {
         this.mainPage = true;
         this.surveyPage = false;
+      }
+      if (to.path.includes("/survey")) {
+        this.mainPage = false;
+        this.surveyPage = true;
       }
     }
   }
@@ -59,9 +64,9 @@ export default {
   color: white;
   overflow-x: hidden;
   /* background-color: #060613; */
-  background-image: url('@/assets/test_v5.png');
+  background-image: url('@/assets/test_v8.png');
   background-position: center;
-  background-size: cover;
+  background-size: contain;
   background-repeat: repeat-y;
 }
 
@@ -109,12 +114,16 @@ body {
   width: 10rem;
   height: 5rem;
   margin-bottom: 1rem;
+  position: relative;
 }
 
 .footer__logo--img {
   width: 100%;
   height: 100%;
   object-fit: contain;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .footer__content {

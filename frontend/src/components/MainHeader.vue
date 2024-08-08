@@ -10,7 +10,7 @@
       </div>
       <div class="main-header__menu-bar">
         <div class="menu-componenet" v-for="(serverName, idx) in serverNames" :key="idx">
-          <router-link :to="{ path: '/board', query: { server: serverName } }" class="link">{{ serverName
+          <router-link :to="{ path: '/main' }" class="link">{{ serverName
             }}</router-link>
         </div>
       </div>

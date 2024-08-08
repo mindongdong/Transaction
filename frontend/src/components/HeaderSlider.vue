@@ -1,15 +1,14 @@
 <template>
-  <swiper
-    :modules="modules"
-    :slides-per-view="slidesPerView"
-    :space-between="50"
-    navigation
-    loop
-    @swiper="onSwiper"
-    @slideChange="onSlideChange"
-  >
+  <swiper :modules="modules" :slides-per-view="slidesPerView" :space-between="50" :autoplay="{ delay: 100 }" navigation loop @swiper="onSwiper"
+    @slideChange="onSlideChange">
     <swiper-slide class="main-slider" v-for="(content, idx) in contents" :key="idx">
-      <img class="main-slider__img" :src="content.content">
+      <div class="main-slider__text">
+        <span style="display: block; text-align: left; font-weight: bold">회원님과 비슷한</span>
+        <span style="display: block; text-align: center; font-weight: bolder;">
+          <span style="text-align: center; font-weight: bolder; font-size: 3.5rem; color: #BF3D28;">{{ content.percent}}</span>의 유저들이</span>
+        <span style="display: block; text-align: right;">플레이 하고 있어요</span>
+      </div>
+      <img class="header-slider__img" :width="widthSlider" :src="content.content">
     </swiper-slide>
     <!-- <img class="background-img" src="@/assets/game.png"> -->
   </swiper>
@@ -43,6 +42,10 @@ export default {
     slidesPerView: {
       type: Number,
       default: 3,
+    },
+    widthSlider: {
+      type: String,
+      default: "100%",
     },
   },
   setup() {
@@ -85,7 +88,7 @@ export default {
 /* 각 슬라이드의 크기 설정 */
 .swiper-slide {
   width: calc(100%);
-  height: calc(100% - 2rem);
+  height: calc(100%);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -94,35 +97,46 @@ export default {
   border-radius: 8px;
   box-sizing: border-box;
   border-radius: 1rem;
+  cursor: pointer;
 }
 
 .swiper-slide:hover {
   transform: scale(1);
   transition: transform 0.5s;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
-.main-slider{
+.main-slider {
   position: relative;
+  border-radius: 1rem;
 }
 
-.main-slider__title {
-  height: 10%;
-  margin-top: 1rem;
-  font-size: 1.5rem;
-  color: rgb(197, 197, 197);
+.main-slider__text {
+  position: absolute;
+  top: 0;
+  left: 5%;
+  font-weight: bolder;
+  font-size: 3rem;
 }
 
 .main-slider__content {
   font-size: 1.5rem;
 }
 
-.main-slider__img{
-  width: calc(100% - 2rem);
-  height: 85%;
-  object-fit: cover;
+.header-slider__img {
+  width: 84.5rem;
+  object-fit: contain;
   border-radius: 1rem;
-  margin-bottom: 5%;
+}
+
+.main-slider__img {
+  width: 25rem;
+  object-fit: contain;
+  border-radius: 1rem;
+}
+
+.main-slider__img:hover {
+  transform: scale(1.05);
+  transition: transform 0.5s;
 }
 
 /* 네비게이션 버튼 스타일 */
@@ -135,16 +149,31 @@ export default {
 
 .swiper-button-next {
   background-image: url("@/assets/next.png");
+  transform: translateX(-200%);
+  transition: transform 0.5s;
+}
+
+.swiper-button-next:hover {
+  transform: scale(1.1) translateX(-200%);
+  opacity: 1;
 }
 
 .swiper-button-prev {
   background-image: url("@/assets/before.png");
+  transform: translateX(200%);
+  transition: transform 0.5s;
+}
+
+.swiper-button-prev:hover {
+  transform: scale(1.1) translateX(200%);
+  opacity: 1;
 }
 
 .swiper-button-next,
 .swiper-button-prev {
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 3rem;
+  height: 3rem;
+  opacity: 0.3;
   cursor: pointer;
 }
 
@@ -155,12 +184,6 @@ export default {
 .swiper-button-prev:hover {
   transform: translateX(30%);
 } */
-
-.swiper-button-next:hover,
-.swiper-button-prev:hover {
-  transform: scale(1.05);
-  transition: transform 0.5s;
-}
 
 /* 네비게이션 화살표 아이콘 스타일 */
 .swiper-button-next:after,
