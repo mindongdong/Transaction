@@ -1,8 +1,14 @@
 <template>
   <div id="app">
-    <MainHeader />
+    <MainHeader class="header" v-bind:class="{
+      survey: surveyPage,
+      main: mainPage
+    }" />
     <router-view />
-    <footer class="footer">
+    <footer class="footer" v-bind:class="{
+      survey: surveyPage,
+      main: mainPage
+    }">
       <div class="footer__column">
         <div class="footer__logo">
           <img class="footer__logo--img" src="@/assets/logo_white.png" alt="로고" />
@@ -27,6 +33,20 @@ export default {
   components: {
     MainHeader,
   },
+  data() {
+    return {
+      surveyPage: true,
+      mainPage: false,
+    };
+  },
+  watch: {
+    $route(to) {
+      if (!to.path.includes("/survey")) {
+        this.mainPage = true;
+        this.surveyPage = false;
+      }
+    }
+  }
 };
 </script>
 
@@ -38,7 +58,11 @@ export default {
   text-align: center;
   color: white;
   overflow-x: hidden;
-  background: black;
+  /* background-color: #060613; */
+  background-image: url('@/assets/test_v5.png');
+  background-position: center;
+  background-size: cover;
+  background-repeat: repeat-y;
 }
 
 /* reset css */
@@ -54,6 +78,12 @@ body {
   font-family: 'Pretendard', sans-serif;
 }
 
+.header {
+  position: fixed;
+  z-index: 999;
+  background: rgba(0, 0, 0, 0.8);
+}
+
 /* 기존의 스타일 */
 .footer {
   width: 100%;
@@ -63,8 +93,9 @@ body {
   justify-content: space-around;
   align-items: center;
   /* border-top: 2px solid #ddd; */
-  color: hsla(0,0%,100%,.65);
-  background-color: #333;
+  color: hsla(0, 0%, 100%, .65);
+  background-color: #060613;
+  border-top: 1px solid #1a1a1a;
 }
 
 .footer__column {
@@ -95,5 +126,13 @@ body {
 
 .footer__content__item {
   margin: 0.5rem;
+}
+
+.survey {
+  display: none !important;
+}
+
+.main {
+  display: flex !important;
 }
 </style>

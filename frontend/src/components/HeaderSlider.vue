@@ -11,6 +11,7 @@
     <swiper-slide class="main-slider" v-for="(content, idx) in contents" :key="idx">
       <img class="main-slider__img" :src="content.content">
     </swiper-slide>
+    <!-- <img class="background-img" src="@/assets/game.png"> -->
   </swiper>
 </template>
 
@@ -68,13 +69,23 @@ export default {
   height: 100%;
   margin: 0 auto;
   padding: 0 5rem;
+  position: relative;
+}
+
+.background-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  z-index: -1;
 }
 
 /* 각 슬라이드의 크기 설정 */
 .swiper-slide {
   width: calc(100%);
   height: calc(100% - 2rem);
-  min-width: 20rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -107,10 +118,11 @@ export default {
 }
 
 .main-slider__img{
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
+  width: calc(100% - 2rem);
+  height: 85%;
+  object-fit: cover;
   border-radius: 1rem;
+  margin-bottom: 5%;
 }
 
 /* 네비게이션 버튼 스타일 */
@@ -131,14 +143,22 @@ export default {
 
 .swiper-button-next,
 .swiper-button-prev {
-  width: 3rem;
-  height: 3rem;
+  width: 2.5rem;
+  height: 2.5rem;
   cursor: pointer;
 }
 
+/* .swiper-button-next:hover {
+  transform: translateX(-30%);
+}
+
+.swiper-button-prev:hover {
+  transform: translateX(30%);
+} */
+
 .swiper-button-next:hover,
 .swiper-button-prev:hover {
-  transform: scale(1.1);
+  transform: scale(1.05);
   transition: transform 0.5s;
 }
 

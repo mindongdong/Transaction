@@ -4,7 +4,8 @@
     <div class="main-header__column">
       <div class="main-header__logo">
         <router-link to="/" class="link">
-          <img class="main-header__logo--img" src="@/assets/logo_white.png" alt="로고" />
+          <img class="main-header__logo--img" src="@/assets/G.png" alt="로고" />
+          <img class="main-header__logo--img" src="@/assets/C.png" alt="로고" />
         </router-link>
       </div>
       <div class="main-header__menu-bar">
@@ -84,7 +85,7 @@ export default {
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin-top: 1rem;
+  margin: 0.5rem;
 }
 
 .main-header__logo {
@@ -94,6 +95,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
 }
 
 .main-header__logo a {
@@ -108,6 +110,7 @@ export default {
   width: 100%;
   height: 100%;
   object-fit: contain;
+  position: absolute;
 }
 
 .main-header__search {

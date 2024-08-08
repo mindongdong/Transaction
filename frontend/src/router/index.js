@@ -5,11 +5,14 @@ import { createRouter, createWebHistory } from "vue-router";
 const routes = [
   {
     path: "/",
-    redirect: "/main",
+    redirect: "/survey",
+  },
+  {
+    path: "/survey",
+    component: () => import("@/views/SurveyPage.vue"),
   },
   {
     path: "/main",
-    // Vue 3에서도 Lazy loading을 사용할 수 있습니다
     component: () => import("@/views/MainPage.vue"),
   },
   {

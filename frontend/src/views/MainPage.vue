@@ -2,7 +2,7 @@
 <template>
   <div class="main-page">
     <div class="main-page__popupContent">
-      <MainSlider :contents="popupComponents" :styles="popupStyles" :slidesPerView="1"></MainSlider>
+      <HeaderSlider :contents="popupComponents" :styles="popupStyles" :slidesPerView="1"></HeaderSlider>
     </div>
     <div class="main-page__header">
       <h1 class="main-page__title">
@@ -14,46 +14,84 @@
     </div>
     <div class="main-page__board">
       <div class="board__list">
-        <MainSlider :contents="boardComponents" :slidesPerView="3"></MainSlider>
+        <MainSlider :contents="boardComponents" :slidesPerView="4"></MainSlider>
       </div>
     </div>
     <div class="main-page__board">
       <div class="board__list">
-        <MainSlider :contents="boardComponents" :slidesPerView="3"></MainSlider>
+        <MainSlider :contents="boardComponents" :slidesPerView="4"></MainSlider>
       </div>
+    </div>
+    <div class="main-page__board">
+      <div class="board__list">
+        <MainSlider :contents="boardComponents" :slidesPerView="4"></MainSlider>
+      </div>
+    </div>
+    <div class="main-page__header">
+      <h1 class="main-page__title">
+        웹사이트 소개입니다. 웹사이트 소개입니다.
+      </h1>
+      <p class="main-page__subtitle">
+        웹사이트 설명입니다. 웹사이트 설명입니다.
+      </p>
+    </div>
+    <div class="main-page__board">
+      <div class="board__list">
+        <MainSlider :contents="boardComponents" :slidesPerView="4"></MainSlider>
+      </div>
+    </div>
+    <div class="main-page__board">
+      <div class="board__list">
+        <MainSlider :contents="boardComponents" :slidesPerView="4"></MainSlider>
+      </div>
+    </div>
+    <div class="main-page__board">
+      <div class="board__list">
+        <MainSlider :contents="boardComponents" :slidesPerView="4"></MainSlider>
+      </div>
+    </div>
+    <div class="main-page__header">
+      <h1 class="main-page__title">
+        웹사이트 소개입니다. 웹사이트 소개입니다.
+      </h1>
+      <p class="main-page__subtitle">
+        웹사이트 설명입니다. 웹사이트 설명입니다.
+      </p>
     </div>
   </div>
 </template>
 <script>
 import MainSlider from "@/components/MainSlider.vue";
+import HeaderSlider from "@/components/HeaderSlider.vue";
 
 export default {
   name: "MainPage",
   components: {
     MainSlider,
+    HeaderSlider,
   },
   data() {
     return {
       popupComponents: [
         {
-          title: "팝업1",
-          content: "팝업1 내용입니다.",
+          title: "메이플",
+          content: require("@/assets/game/메이플.jpeg"),
         },
         {
-          title: "팝업2",
-          content: "팝업2 내용입니다.",
+          title: "던파",
+          content: require("@/assets/game/던파.jpeg"),
         },
         {
-          title: "팝업3",
-          content: "팝업3 내용입니다.",
+          title: "데스티니",
+          content: require("@/assets/game/데스티니.jpeg"),
         },
         {
-          title: "팝업4",
-          content: "팝업4 내용입니다.",
+          title: "피파",
+          content: require("@/assets/game/피파.jpeg"),
         },
         {
-          title: "팝업5",
-          content: "팝업5 내용입니다.",
+          title: "포트나이트",
+          content: require("@/assets/game/포트나이트.jpeg"),
         },
       ],
       popupStyles: {
@@ -64,24 +102,24 @@ export default {
       },
       boardComponents: [
         {
-          title: "게시글1",
-          content: "게시글1 내용입니다.",
+          title: "다잉라이트",
+          content: require("@/assets/game/다잉라이트.jpeg"),
         },
         {
-          title: "게시글2",
-          content: "게시글2 내용입니다.",
+          title: "던파",
+          content: require("@/assets/game/던파.jpeg"),
         },
         {
-          title: "게시글3",
-          content: "게시글3 내용입니다.",
+          title: "데스티니",
+          content: require("@/assets/game/데스티니.jpeg"),
         },
         {
-          title: "게시글4",
-          content: "게시글4 내용입니다.",
+          title: "메이플",
+          content: require("@/assets/game/메이플.jpeg"),
         },
         {
-          title: "게시글5",
-          content: "게시글5 내용입니다.",
+          title: "피파",
+          content: require("@/assets/game/피파.jpeg"),
         },
       ],
     };
@@ -94,6 +132,7 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding-top: 3rem;
 }
 
 .main-page__header {
@@ -126,14 +165,13 @@ export default {
 
 .main-page__popupContent,
 .main-page__board {
-  width: calc(100vw - 34rem);
-  min-width: 80rem;
-  height: 40rem;
+  width: calc(100vw);
+  height: 50rem;
   margin: 2rem 0;
 }
 
 .main-page__board {
-  height: 25rem;
+  height: 15rem;
   display: flex;
   flex-direction: row;
   align-items: center;
